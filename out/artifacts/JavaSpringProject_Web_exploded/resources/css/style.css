@@ -1,0 +1,122 @@
+body {
+    background-color: #2b2b28;
+    color: white;
+}
+.container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width:100%;
+    position: absolute;
+}
+form {
+    background-color: #91d18b;
+    vertical-align: center;
+}
+header {
+    background-color: #2b2b28;
+    height: 10%;
+    text-align: center;
+}
+footer {
+    background-color: #2b2b28;
+    height: 20%;
+    text-align: center;
+}
+.innerContainer {
+    display: flex;
+    flex-direction: row;
+    height: 70%;
+    width: 100%;
+}
+.innerContainer nav {
+    background-color: #2b2b28;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+}
+a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 120%;
+}
+.innerContainer nav a:hover {
+    background-color: #4CAF50;
+}
+.innerContainer aside {
+    background-color: #2b2b28;
+    width: 10%;
+    color: #7E685A;
+    text-align: center;
+    padding: 20px;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.middle {
+    width: 75%;
+    /*position: relative;*/
+}
+
+table {
+    border-collapse: collapse;
+    padding: 0;
+    background-color: #91d18b;
+    color: black;
+}
+
+table td {
+    width: 15%;
+    display: table-cell;
+    vertical-align: center;
+    text-align: center;
+}
+header {
+    height: 20%;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+.button a {
+    color: white;
+}
+.button {
+    font-family: "Times New Roman", Times, serif;
+    border: none;
+    /*padding: 16px 32px;*/
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /*font-size: 16px;*/
+    margin: auto;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #2b2b28;
+}
+
+.button:hover {
+    background-color: #4CAF50;
+}
+h4 {
+    color: black;
+}
+input[type=submit] {
+    font-family: "Times New Roman", Times, serif;
+    color: white;
+    border: none;
+    /*padding: 16px 32px;*/
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /*font-size: 16px;*/
+    margin: auto;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #2b2b28;
+}
+input[type=submit]:hover {
+    background-color: #4CAF50;
+}

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="classpath:database.xml"/>
+    <import resource="classpath:security.xml"/>
+    <context:component-scan
+            base-package="by.bsuir.controller"/>
+    <context:annotation-config/>
+
+    <bean id="userService"
+          class="by.bsuir.service.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+        <property name="bCryptPasswordEncoder" ref="encoder"/>
+
+    </bean>
+
+    <bean id="passportService"
+          class="by.bsuir.service.PassportServiceImpl">
+        <property name="passportDAO" ref="passportDAO"/>
+    </bean>
+
+    <bean id="salaryService"
+          class="by.bsuir.service.SalaryServiceImpl">
+        <property name="salaryDAO" ref="salaryDAO"/>
+    </bean>
+
+    <bean id="workContractService"
+          class="by.bsuir.service.WorkContractServiceImpl">
+        <property name="workContractDAO" ref="contractDAO"/>
+    </bean>
+
+    <bean id="workerService"
+          class="by.bsuir.service.WorkerServiceImpl">
+        <property name="workerDAO" ref="workerDAO"/>
+    </bean>
+
+    <bean id="workingTimeService"
+          class="by.bsuir.service.WorkingTimeServiceImpl">
+        <property name="workingTimeDAO" ref="timetableDAO"/>
+    </bean>
+
+    <bean id="privilegeService"
+          class="by.bsuir.service.PrivilegeServiceImpl">
+        <property name="privilegeDAO" ref="privilegeDAO"/>
+    </bean>
+
+    <bean id="userConverter"
+          class="by.bsuir.converter.UserConverter"/>
+
+    <bean id="passportConverter"
+          class="by.bsuir.converter.PassportConverter"/>
+
+    <bean id="salaryConverter"
+          class="by.bsuir.converter.SalaryConverter"/>
+
+    <bean id="workContractConverter"
+          class="by.bsuir.converter.WorkContractConverter"/>
+
+    <bean id="workingTimeConverter"
+          class="by.bsuir.converter.WorkingTimeConverter"/>
+
+    <bean id="privilegeConverter"
+          class="by.bsuir.converter.PrivilegeConverter"/>
+
+    <bean id="workerConverter"
+          class="by.bsuir.converter.WorkerConverter">
+        <property name="workContractConverter" ref="workContractConverter"/>
+        <property name="passportConverter" ref="passportConverter"/>
+        <property name="userConverter" ref="userConverter"/>
+    </bean>
+
+    <bean id="appProperties"
+          class="by.bsuir.ApplicationProperties"/>
+
+    <bean id="workingTimeListConverter"
+          class="by.bsuir.converter.WorkingTimeListConverter">
+        <property name="workingTimeConverter"
+                  ref="workingTimeConverter"/>
+    </bean>
+
+    <bean id="privilegeListConverter"
+          class="by.bsuir.converter.PrivilegeListConverter">
+        <property name="privilegeConverter"
+                  ref="privilegeConverter"/>
+    </bean>
+
+    <bean id="salaryListConverter"
+          class="by.bsuir.converter.SalaryListConverter">
+        <property name="salaryConverter"
+                  ref="salaryConverter"/>
+    </bean>
+
+    <bean id="userListConverter"
+          class="by.bsuir.converter.UserListConverter">
+        <property name="userConverter" ref="userConverter"/>
+    </bean>
+
+    <bean id="userOperationsFacade"
+          class="by.bsuir.facade.UserOperationsFacade">
+        <property name="userConverter" ref="userConverter"/>
+        <property name="userService" ref="userService"/>
+        <property name="applicationProperties" ref="appProperties"/>
+    </bean>
+
+    <bean id="workerOperationsFacade"
+          class="by.bsuir.facade.WorkerOperationsFacade">
+        <property name="userService" ref="userService"/>
+        <property name="passportService" ref="passportService"/>
+        <property name="workContractService" ref="workContractService"/>
+        <property name="workerService" ref="workerService"/>
+        <property name="salaryService" ref="salaryService"/>
+        <property name="workingTimeService" ref="workingTimeService"/>
+        <property name="privilegeService" ref="privilegeService"/>
+        <property name="applicationProperties" ref="appProperties"/>
+    </bean>
+
+    <bean id="workingTimeFacade"
+          class="by.bsuir.facade.WorkingTimeFacade">
+        <property name="userService" ref="userService"/>
+        <property name="workingTimeService" ref="workingTimeService"/>
+        <property name="workerService" ref="workerService"/>
+        <property name="applicationProperties" ref="appProperties"/>
+    </bean>
+
+    <bean id="startAppFacade"
+          class="by.bsuir.facade.StartApplicationFacade">
+        <property name="userService" ref="userService"/>
+        <property name="workerService" ref="workerService"/>
+        <property name="workContractService" ref="workContractService"/>
+    </bean>
+
+</beans>

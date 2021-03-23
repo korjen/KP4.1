@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="by.bsuir">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--<context:component-scan base-package="by.bsuir" />-->
+
+    <!-- Getting Database properties -->
+    <context:property-placeholder location="classpath:database.properties" />
+
+    <!-- DataSource -->
+    <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          id="dataSource">
+        <property name="driverClassName" value="${database.driver}"/>
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.user}"/>
+        <property name="password" value="${database.password}"/>
+    </bean>
+
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.connection.charSet">${hibernate.connection.charSet}</prop>
+                <prop key="jpa.hibernate.ddl-auto">${jpa.hibernate.ddl-auto}</prop>
+                <prop key="current_session_context_class">${current_session_context_class}</prop>
+            </props>
+        </property>
+        <property name="packagesToScan" value="by.bsuir.model"/>
+    </bean>
+
+    <!-- Transaction -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="abstractDAO" class="by.bsuir.dao.AbstractBaseDAO" abstract="true">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="userDAO" class="by.bsuir.dao.UserDAOImpl" parent="abstractDAO"/>
+
+    <bean id="passportDAO" class="by.bsuir.dao.PassportDAOImpl" parent="abstractDAO"/>
+
+    <bean id="salaryDAO" class="by.bsuir.dao.SalaryDAOImpl" parent="abstractDAO">
+        <!--<property name="applicationProperties" ref="appProperties"/>-->
+    </bean>
+
+    <bean id="contractDAO" class="by.bsuir.dao.WorkContractDAOImpl" parent="abstractDAO"/>
+
+    <bean id="workerDAO" class="by.bsuir.dao.WorkerDAOImpl" parent="abstractDAO"/>
+
+    <bean id="timetableDAO" class="by.bsuir.dao.WorkingTimeDAOImpl" parent="abstractDAO"/>
+
+    <bean id="privilegeDAO" class="by.bsuir.dao.PrivilegeDAOImpl" parent="abstractDAO"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

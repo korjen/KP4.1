@@ -1,0 +1,26 @@
+.message {
+    /*color: #ed018c;*/
+    margin: 0;
+    /*color: #2a1b3d;*/
+    color: #322d5c;
+    font-weight: bold;
+    text-shadow: -1px 1px 2px #ffffff,
+    1px 1px 2px #ffffff,
+    1px -1px 0 #ffffff,
+    -1px -1px 0 #ffffff;
+}
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+form {
+    background-color: #FFDDCC;
+    vertical-align: center;
+}
+.margin-right {
+    margin-right: 5vw;
+}
+.margin-left {
+    margin-left: 5vw;
+}
